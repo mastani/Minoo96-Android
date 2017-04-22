@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">مینو 96</string>
+
+    <string name="tab1">لیست نامزد ها</string>
+    <string name="tab2">اخبار انتخابات</string>
+    <string name="continue_reading">ادامه مطلب</string>
+    <string name="label_email_mobile">شماره موبایل یا ایمیل</string>
+    <string name="label_password">کلمه عبور</string>
+    <string name="label_confirm_password">تایید کلمه عبور</string>
+    <string name="label_register_hint">در صورتی که ثبت نام نکرده اید <u>اینجا</u> را لمس کنید</string>
+    <string name="label_login_hint">در صورتی که قبلا ثبت نام کرده اید برای ورود <u>اینجا</u> را لمس کنید</string>
+    <string name="label_name">نام</string>
+    <string name="label_lastname">نام خانوادگی</string>
+    <string name="label_email">ایمیل</string>
+    <string name="label_mobile">شماره موبایل: 09xxxxxxxxx</string>
+</resources>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/tools"
+    android:id="@+id/login_area"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/txtUsernameLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:drawableRight="@mipmap/fr_username"
+            android:hint="@string/label_email_mobile"
+            android:maxLines="1"
+            android:textSize="14sp"/>
+
+        <EditText
+            android:id="@+id/txtPasswordLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="20dp"
+            android:drawableRight="@mipmap/fr_password"
+            android:hint="@string/label_password"
+            android:inputType="textPassword"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <!--<com.dd.processbutton.iml.ActionProcessButton-->
+        <!--android:id="@+id/btnSignIn"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="100dp"-->
+        <!--android:layout_marginRight="100dp"-->
+        <!--android:layout_marginTop="13dp"-->
+        <!--android:text="ورود"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:textSize="16sp"-->
+        <!--custom:pb_colorComplete="@color/green_complete"-->
+        <!--custom:pb_colorError="@color/red_error"-->
+        <!--custom:pb_colorNormal="@color/blue_normal"-->
+        <!--custom:pb_colorPressed="@color/blue_pressed"-->
+        <!--custom:pb_colorProgress="@color/purple_progress"-->
+        <!--custom:pb_textComplete="با موفقیت وارد شدید"-->
+        <!--custom:pb_textError="تلاش مجدد"-->
+        <!--custom:pb_textProgress="در حال ورود"/>-->
+
+    <ir.minoo96.Utility.FontTextView
+        android:id="@+id/link_register"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/label_register_hint"
+        android:textSize="14dip"/>
+</LinearLayout>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/tools"
+    android:id="@+id/register_area"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:layout_marginTop="20dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <EditText
+            android:id="@+id/txtLastNameRegister"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="6"
+            android:hint="@string/label_lastname"
+            android:maxLines="1"
+            android:textSize="14sp"/>
+
+        <EditText
+            android:id="@+id/txtNameRegister"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:hint="@string/label_name"
+            android:maxLines="1"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/txtEmailRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/label_email"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:textSize="14sp"/>
+
+    <EditText
+        android:id="@+id/txtMobileRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/label_mobile"
+        android:maxLines="1"
+        android:textSize="14sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <EditText
+            android:id="@+id/txtPasswordRegister"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:hint="@string/label_confirm_password"
+            android:inputType="textPassword"
+            android:textSize="14sp"/>
+
+        <EditText
+            android:id="@+id/txtPasswordConfirmRegister"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:hint="@string/label_password"
+            android:inputType="textPassword"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <!--<com.dd.processbutton.iml.ActionProcessButton-->
+        <!--android:id="@+id/btnRegister"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="100dp"-->
+        <!--android:layout_marginRight="100dp"-->
+        <!--android:layout_marginTop="13dp"-->
+        <!--android:text="ثبت نام"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:textSize="16sp"-->
+        <!--custom:pb_colorComplete="@color/green_complete"-->
+        <!--custom:pb_colorError="@color/red_error"-->
+        <!--custom:pb_colorNormal="@color/blue_normal"-->
+        <!--custom:pb_colorPressed="@color/blue_pressed"-->
+        <!--custom:pb_colorProgress="@color/purple_progress"-->
+        <!--custom:pb_textComplete="با موفقیت ثبت نام شدید"-->
+        <!--custom:pb_textError="تلاش مجدد"-->
+        <!--custom:pb_textProgress="در حال ارسال اطلاعات"/>-->
+
+    <ir.minoo96.Utility.FontTextView
+        android:id="@+id/link_login"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/label_login_hint"
+        android:textSize="14dip"/>
+</LinearLayout>

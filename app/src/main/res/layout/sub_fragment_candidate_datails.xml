@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:fitsSystemWindows="true"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/candidate_bg"
+                    app:layout_collapseMode="parallax"/>
+
+
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/imgProfile"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/person_button"/>
+            </RelativeLayout>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ir.minoo96.Utility.FontTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:lineSpacingExtra="8dp"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="اطلاعات پایه"
+                android:textSize="22sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:lineSpacingExtra="8dp"
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/activity_horizontal_margin">
+
+                <ir.minoo96.Utility.FontTextView
+                    android:id="@+id/txtName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:text="تست"
+                    android:textSize="14sp"/>
+
+                <ir.minoo96.Utility.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="نام و نام خانوادگی:"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:lineSpacingExtra="8dp"
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/activity_horizontal_margin">
+
+                <ir.minoo96.Utility.FontTextView
+                    android:id="@+id/txtFather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:text="تست"
+                    android:textSize="14sp"/>
+
+                <ir.minoo96.Utility.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="نام پدر:"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:lineSpacingExtra="8dp"
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/activity_horizontal_margin">
+
+                <ir.minoo96.Utility.FontTextView
+                    android:id="@+id/txtAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:text="تست"
+                    android:textSize="14sp"/>
+
+                <ir.minoo96.Utility.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="سن:"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:lineSpacingExtra="8dp"
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/activity_horizontal_margin">
+
+                <ir.minoo96.Utility.FontTextView
+                    android:id="@+id/txtHezb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:text="تست"
+                    android:textSize="14sp"/>
+
+                <ir.minoo96.Utility.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="گرایش سیاسی:"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:lineSpacingExtra="8dp"
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/activity_horizontal_margin">
+
+                <ir.minoo96.Utility.FontTextView
+                    android:id="@+id/txtTahsilat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:text="تست"
+                    android:textSize="14sp"/>
+
+                <ir.minoo96.Utility.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="تحصیلات:"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:lineSpacingExtra="8dp"
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/activity_horizontal_margin">
+
+                <ir.minoo96.Utility.FontTextView
+                    android:id="@+id/txtReshteh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:text="تست"
+                    android:textSize="14sp"/>
+
+                <ir.minoo96.Utility.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="رشته تحصیلی:"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:lineSpacingExtra="8dp"
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/activity_horizontal_margin">
+
+                <ir.minoo96.Utility.FontTextView
+                    android:id="@+id/txtDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:text="تست"
+                    android:textSize="14sp"/>
+
+                <ir.minoo96.Utility.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="تاریخ ثبت نام:"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <ir.minoo96.Utility.FontTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:lineSpacingExtra="8dp"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="بیوگرافی"
+                android:textSize="22sp"/>
+
+            <ir.minoo96.Utility.FontTextView
+                android:id="@+id/txtBio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:gravity="right"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="تست"
+                android:textSize="16sp"/>
+
+            <ir.minoo96.Utility.FontTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:lineSpacingExtra="8dp"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="سوابق کاری"
+                android:textSize="22sp"/>
+
+            <ir.minoo96.Utility.FontTextView
+                android:id="@+id/txtSavabegh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:gravity="right"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="تست"
+                android:textSize="16sp"/>
+
+            <ir.minoo96.Utility.FontTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:lineSpacingExtra="8dp"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="ایده ها برای شهری بهتر"
+                android:textSize="22sp"/>
+
+            <ir.minoo96.Utility.FontTextView
+                android:id="@+id/txtIdeas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:gravity="right"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="تست"
+                android:textSize="16sp"/>
+
+            <ir.minoo96.Utility.FontTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:lineSpacingExtra="8dp"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="دیگر اطلاعات"
+                android:textSize="22sp"/>
+
+            <ir.minoo96.Utility.FontTextView
+                android:id="@+id/txtOthers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:gravity="right"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="تست"
+                android:textSize="16sp"/>
+
+            <ir.minoo96.Utility.FontTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:lineSpacingExtra="8dp"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="اطلاعات تماس"
+                android:textSize="22sp"/>
+
+            <ir.minoo96.Utility.FontTextView
+                android:id="@+id/txtContacts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:gravity="right"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="تست"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

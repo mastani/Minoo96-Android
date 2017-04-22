@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="end"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+        <ir.minoo96.Utility.FontTextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:text="تاریخ"
+            android:textColor="@color/brown"
+            android:textSize="16sp"/>
+
+        <ir.minoo96.Utility.FontTextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginLeft="5dp"
+            android:ellipsize="end"
+            android:text="امین: "
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <ir.minoo96.Utility.FontTextView
+        android:id="@+id/comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:ellipsize="end"
+        android:gravity="right"
+        android:text="سلام"
+        android:textColor="@color/grey"
+        android:textSize="16sp"/>
+</LinearLayout>

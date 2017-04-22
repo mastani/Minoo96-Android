@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ir.minoo96.CommentsActivity">
+
+    <LinearLayout
+        android:id="@+id/comment"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <ir.minoo96.Utility.FontButton
+            android:id="@+id/btnSend"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="ارسال"/>
+
+        <EditText
+            android:id="@+id/editTextComment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_weight="8"
+            android:gravity="right"
+            android:hint="متن نظر را وارد کنید ..."
+            android:inputType="text"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="@color/grey"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/comment"
+        android:divider="@null"/>
+
+</RelativeLayout>

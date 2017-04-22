@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe_refresh_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/sub_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:gravity="top"
+        android:orientation="vertical">
+
+        <ir.minoo96.Utility.FontTextView
+            android:id="@+id/txtNoPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:text="این کاندید هنوز مطلبی ارسال نکرده است."
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@color/feed_bg"
+            android:clipToPadding="false"
+            android:paddingBottom="20dp"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+    </RelativeLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe_refresh_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <ir.minoo96.Utility.FontButton
+                android:id="@+id/btn_ladies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/rounded_button"
+                android:paddingBottom="2dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="2dp"
+                android:text="خانم ها"
+                android:textColor="@color/button_color"
+                android:textSize="14sp"/>
+
+            <ir.minoo96.Utility.FontButton
+                android:id="@+id/btn_gentleman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/rounded_button"
+                android:paddingBottom="2dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="2dp"
+                android:text="آقایان"
+                android:textColor="@color/button_color"
+                android:textSize="14sp"/>
+
+            <ir.minoo96.Utility.FontButton
+                android:id="@+id/btn_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button"
+                android:paddingBottom="2dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="2dp"
+                android:text="همه ی نامزد ها"
+                android:textColor="@color/button_color"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <ir.minoo96.Utility.FontButton
+                android:id="@+id/btn_recandidate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/rounded_button"
+                android:paddingBottom="2dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="2dp"
+                android:text="شورا های سابق"
+                android:textColor="@color/button_color"
+                android:textSize="14sp"/>
+
+            <ir.minoo96.Utility.FontButton
+                android:id="@+id/btn_youngest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/rounded_button"
+                android:paddingBottom="2dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="2dp"
+                android:text="جوان ترین ها"
+                android:textColor="@color/button_color"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+    </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
