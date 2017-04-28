@@ -1,25 +1,19 @@
 package ir.minoo96;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import com.mikhaellopez.circularimageview.CircularImageView;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ir.minoo96.Fragments.SubFragmentCandidateDetails;
 import ir.minoo96.Fragments.SubFragmentCandidatePosts;
-import ir.minoo96.Items.Candidate;
-import ir.minoo96.Utility.FontTextView;
 import ir.minoo96.Utility.SwipeBack.SwipeBackActivityHelper;
-import ir.minoo96.Utility.Variables;
 
 public class CandidateActivity extends AppCompatActivity {
 

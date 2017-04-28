@@ -1,5 +1,6 @@
 package ir.minoo96.Fragments;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,11 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import java.util.ArrayList;
 
-import ir.minoo96.API.RequestCallback;
+import ir.minoo96.API.Callbacks.RequestCallback;
 import ir.minoo96.API.Requests;
 import ir.minoo96.Adapters.CandidateAdapter;
 import ir.minoo96.Items.Candidate;
@@ -30,7 +30,7 @@ public class FragmentCandidates extends Fragment implements SwipeRefreshLayout.O
     GridLayoutManager gridLayoutManager;
     private RecyclerView recyclerView;
     CandidateAdapter candidateAdapter;
-    FontButton btnAll, btnGentleman, btnLadies, btnReCandidate, btnYoungest;
+    FontButton btnAll, btnGentleman, btnLadies, btnReCandidate;
 
     public FragmentCandidates() {
 
@@ -45,11 +45,16 @@ public class FragmentCandidates extends Fragment implements SwipeRefreshLayout.O
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        int screenSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(false);
-        gridLayoutManager = new RtlGridLayoutManager(getContext(), 3);
+        if (screenSize == Configuration.SCREENLAYOUT_SIZE_NORMAL)
+            gridLayoutManager = new RtlGridLayoutManager(getContext(), 3);
+         else if (screenSize == Configuration.SCREENLAYOUT_SIZE_SMALL)
+            gridLayoutManager = new RtlGridLayoutManager(getContext(), 2);
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
 
@@ -57,7 +62,6 @@ public class FragmentCandidates extends Fragment implements SwipeRefreshLayout.O
         btnGentleman = (FontButton) view.findViewById(R.id.btn_gentleman);
         btnLadies = (FontButton) view.findViewById(R.id.btn_ladies);
         btnReCandidate = (FontButton) view.findViewById(R.id.btn_recandidate);
-        btnYoungest = (FontButton) view.findViewById(R.id.btn_youngest);
 
         candidateAdapter = new CandidateAdapter(getActivity(), true, Variables.candidates);
         recyclerView.setAdapter(candidateAdapter);
@@ -81,7 +85,6 @@ public class FragmentCandidates extends Fragment implements SwipeRefreshLayout.O
         btnGentleman.setOnClickListener(this);
         btnLadies.setOnClickListener(this);
         btnReCandidate.setOnClickListener(this);
-        btnYoungest.setOnClickListener(this);
     }
 
     @Override
@@ -118,10 +121,6 @@ public class FragmentCandidates extends Fragment implements SwipeRefreshLayout.O
                     break;
                 case R.id.btn_ladies:
                     if (item.getGender() == 1)
-                        candidates.add(item);
-                    break;
-                case R.id.btn_youngest:
-                    if (item.getAge() <= 30)
                         candidates.add(item);
                     break;
                 case R.id.btn_recandidate:

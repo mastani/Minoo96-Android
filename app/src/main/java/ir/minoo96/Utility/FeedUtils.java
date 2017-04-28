@@ -1,19 +1,18 @@
 package ir.minoo96.Utility;
 
 import android.content.Context;
+import android.net.Uri;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import ir.minoo96.Items.Feed;
 
 public class FeedUtils {
 
-    public static void setData(Context context, int feedId, FontTextView name, FontTextView statusMsg, ImageView netImageView, boolean single) {
+    public static void setData(Context context, int feedId, FontTextView name, FontTextView statusMsg, SimpleDraweeView netImageView, boolean single) {
         Feed feed = Variables.feeds.get(feedId);
         name.setText(feed.getName());
 
@@ -43,7 +42,8 @@ public class FeedUtils {
 
         // Feed image
         if (feed.getImge() != null) {
-            Picasso.with(context).load(feed.getImge()).into(netImageView);
+            Uri imageUri = Uri.parse(feed.getImge());
+            netImageView.setImageURI(imageUri);
             netImageView.setVisibility(View.VISIBLE);
         } else {
             netImageView.setVisibility(View.GONE);

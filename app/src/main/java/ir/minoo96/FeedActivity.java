@@ -6,6 +6,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import ir.minoo96.Items.Feed;
 import ir.minoo96.Utility.FeedUtils;
 import ir.minoo96.Utility.FontTextView;
@@ -35,7 +37,7 @@ public class FeedActivity extends AppCompatActivity {
 
         FontTextView name = (FontTextView) findViewById(R.id.name);
         FontTextView statusMsg = (FontTextView) findViewById(R.id.txtStatusMsg);
-        ImageView netImageView = (ImageView) findViewById(R.id.feedImage1);
+        SimpleDraweeView netImageView = (SimpleDraweeView) findViewById(R.id.feedImage1);
 
         FeedUtils.setData(getBaseContext(), feedId, name, statusMsg, netImageView, true);
     }

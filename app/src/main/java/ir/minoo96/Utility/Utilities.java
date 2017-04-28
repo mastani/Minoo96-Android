@@ -26,7 +26,7 @@ public class Utilities {
             }
         }
         Candidate nullCandidate = new Candidate();
-        nullCandidate.setImage("http://test.minoo96.ir/Theme/Images/Profiles/person.jpg");
+        nullCandidate.setImage("http://minoo96.ir/Theme/Images/Profiles/person.jpg");
         return nullCandidate;
     }
 

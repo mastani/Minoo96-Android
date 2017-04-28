@@ -13,6 +13,9 @@ public class Variables {
     public static ArrayList<Candidate> candidates;
     public static ArrayList<Post> posts;
 
+    public static ArrayList<Candidate> searchCandidates;
+    public static ArrayList<Post> searchPosts;
+
     public static int userId = 0;
     public static String userName = "";
 }

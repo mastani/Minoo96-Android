@@ -10,14 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
 import ir.minoo96.Adapters.UpdateAdapter;
-import ir.minoo96.API.RequestCallback;
-import ir.minoo96.Items.Post;
+import ir.minoo96.API.Callbacks.RequestCallback;
 import ir.minoo96.R;
 import ir.minoo96.API.Requests;
-import ir.minoo96.Utility.Variables;
 
 public class FragmentUpdates extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 

@@ -1,35 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.mikhaellopez.circularimageview.CircularImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/image"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:src="@mipmap/person_button"
-        app:civ_border_color="#EEEEEE"
-        app:civ_border_width="4dp"
-        app:civ_shadow="true"
-        app:civ_shadow_color="#8BC34A"
-        app:civ_shadow_radius="10" />
+        android:layout_marginTop="10dp"/>
 
     <ir.minoo96.Utility.FontTextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
         android:gravity="end"
         android:textAlignment="gravity"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textStyle="bold"
-        tools:ignore="MissingPrefix" />
+        tools:ignore="MissingPrefix"/>
 
 </LinearLayout>

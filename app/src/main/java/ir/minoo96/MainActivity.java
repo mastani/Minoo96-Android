@@ -1,6 +1,8 @@
 package ir.minoo96;
 
+import android.app.ProgressDialog;
 import android.app.SearchManager;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -12,9 +14,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,14 +28,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import co.ronash.pushe.Pushe;
+import ir.minoo96.API.Callbacks.SearchCallback;
 import ir.minoo96.API.Parser;
-import ir.minoo96.API.RequestCallback;
+import ir.minoo96.API.Callbacks.RequestCallback;
 import ir.minoo96.API.Requests;
 import ir.minoo96.Fragments.FragmentCandidates;
 import ir.minoo96.Fragments.FragmentNews;
-import ir.minoo96.Fragments.FragmentProfile;
 import ir.minoo96.Fragments.FragmentUpdates;
 import ir.minoo96.Fragments.FragmentVote;
+import ir.minoo96.Items.Candidate;
+import ir.minoo96.Items.Post;
 import ir.minoo96.Utility.SharedPreferenceHelper;
 import ir.minoo96.Utility.Utilities;
 import ir.minoo96.Utility.Variables;
@@ -95,6 +102,8 @@ public class MainActivity extends BaseActivity {
         Variables.feeds = new ArrayList<>();
         Variables.candidates = new ArrayList<>();
         Variables.posts = new ArrayList<>();
+        Variables.searchCandidates = new ArrayList<>();
+        Variables.searchPosts = new ArrayList<>();
 
         new Thread(new Runnable() {
             public void run() {
@@ -142,13 +151,14 @@ public class MainActivity extends BaseActivity {
         }).start();
 
         Pushe.initialize(this, false);
+        Fresco.initialize(this);
     }
 
     protected void initializeBottomNavigation(final Bundle savedInstanceState) {
         if (null == savedInstanceState) {
             getBottomNavigation().setDefaultSelectedIndex(0);
             final BadgeProvider provider = getBottomNavigation().getBadgeProvider();
-            provider.show(R.id.bbn_item3);
+            provider.show(R.id.bbn_item4);
         }
     }
 
@@ -236,15 +246,39 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        // Retrieve the SearchView and plug it into SearchManager
+
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setQueryHint("جستجو کاندیدا و پست ها ...");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(getBaseContext(), query, Toast.LENGTH_LONG).show();
+            public boolean onQueryTextSubmit(final String query) {
+                final ProgressDialog mDialog = new ProgressDialog(MainActivity.this);
+                mDialog.setMessage("در حال جستجو ...");
+                mDialog.setCancelable(true);
+                mDialog.show();
+
+                Requests.fetchSearch(getBaseContext(), query, new SearchCallback() {
+                    @Override
+                    public void onSuccess(ArrayList<Candidate> candidates, ArrayList<Post> posts) {
+                        mDialog.dismiss();
+
+                        Variables.searchCandidates = candidates;
+                        Variables.searchPosts = posts;
+
+                        Intent i = new Intent(MainActivity.this, SearchResultActivity.class);
+                        i.putExtra("query", query);
+                        startActivity(i);
+                    }
+
+                    @Override
+                    public void onFailed() {
+                        mDialog.dismiss();
+                    }
+                });
+
                 return false;
             }
 

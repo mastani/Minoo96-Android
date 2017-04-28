@@ -24,13 +24,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:background="@drawable/rounded_button"
-                android:paddingBottom="2dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 android:text="خانم ها"
                 android:textColor="@color/button_color"
-                android:textSize="14sp"/>
+                android:textSize="12sp"/>
 
             <ir.minoo96.Utility.FontButton
                 android:id="@+id/btn_gentleman"
@@ -38,26 +36,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:background="@drawable/rounded_button"
-                android:paddingBottom="2dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 android:text="آقایان"
                 android:textColor="@color/button_color"
-                android:textSize="14sp"/>
+                android:textSize="12sp"/>
 
             <ir.minoo96.Utility.FontButton
                 android:id="@+id/btn_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_button"
-                android:paddingBottom="2dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 android:text="همه ی نامزد ها"
                 android:textColor="@color/button_color"
-                android:textSize="14sp"/>
+                android:textSize="12sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -72,27 +66,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:background="@drawable/rounded_button"
-                android:paddingBottom="2dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 android:text="شورا های سابق"
                 android:textColor="@color/button_color"
-                android:textSize="14sp"/>
+                android:textSize="12sp"/>
 
-            <ir.minoo96.Utility.FontButton
-                android:id="@+id/btn_youngest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/rounded_button"
-                android:paddingBottom="2dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="2dp"
-                android:text="جوان ترین ها"
-                android:textColor="@color/button_color"
-                android:textSize="14sp"/>
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView

@@ -17,15 +17,21 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
+import ir.minoo96.API.Callbacks.CommentsCallback;
+import ir.minoo96.API.Callbacks.RequestCallback;
+import ir.minoo96.API.Callbacks.SearchCallback;
+import ir.minoo96.Items.Candidate;
 import ir.minoo96.Items.Comment;
+import ir.minoo96.Items.Post;
 import ir.minoo96.Utility.SharedPreferenceHelper;
-import ir.minoo96.Utility.Variables;
+import ir.minoo96.Utility.Utilities;
 import ir.minoo96.Utility.Volley.AppController;
 
 public class Requests {
-    private final static String URL_BASE = "http://test.minoo96.ir/API/";
+    private final static String URL_BASE = "http://minoo96.ir/API/";
 
     private final static String URL_INIT = URL_BASE + "loadAll.php";
     private final static String URL_CANDIDATES = URL_BASE + "candidates.php";
@@ -37,6 +43,7 @@ public class Requests {
     private final static String URL_COMMENT = URL_BASE + "comment.php";
     private final static String URL_SEND_COMMENT = URL_BASE + "comment_send.php";
     private final static String URL_UPDATE_USERNAME = URL_BASE + "update_username.php";
+    private final static String URL_SEARCH = URL_BASE + "search.php";
 
     public static void fetchInit(final Context context, final RequestCallback callback) {
         JsonObjectRequest jsonReq = new JsonObjectRequest(Request.Method.GET, URL_INIT, null, new Response.Listener<JSONObject>() {
@@ -307,6 +314,58 @@ public class Requests {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("user", "" + user);
                 params.put("name", "" + name);
+                return params;
+            }
+        };
+
+        req.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        AppController.getInstance().addToRequestQueue(req);
+    }
+
+    public static void fetchSearch(final Context context, final String query, final SearchCallback callback) {
+        StringRequest req = new StringRequest(Request.Method.POST, URL_SEARCH, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                ArrayList<Candidate> candidates = new ArrayList<>();
+                ArrayList<Post> posts = new ArrayList<>();
+
+                try {
+                    JSONObject json = new JSONObject(response);
+                    try {
+                        if (json.has("candidates")) {
+                            JSONArray candidatesArray = json.getJSONArray("candidates");
+
+                            for (int i = 0; i < candidatesArray.length(); i++) {
+                                Candidate candidate = Utilities.findCandidateItem(Integer.parseInt(candidatesArray.get(i).toString()));
+                                candidates.add(candidate);
+                            }
+                        }
+
+                        if (json.has("posts")) {
+                            posts = Parser.parseSearchPosts(json.getJSONArray("posts"));
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                callback.onSuccess(candidates, posts);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                callback.onFailed();
+                Toast.makeText(context, "خطا در اتصال به اینترنت", Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("q", query);
                 return params;
             }
         };

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -39,7 +40,7 @@
                 android:textStyle="bold"
                 tools:ignore="MissingPrefix"/>
 
-            <ImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/feedImage1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,8 +48,8 @@
                 android:layout_marginRight="1dp"
                 android:layout_marginTop="@dimen/feed_item_padding_top_bottom"
                 android:background="@color/white"
-                android:scaleType="fitXY"
-                android:visibility="visible"/>
+                android:visibility="visible"
+                fresco:viewAspectRatio="1.33"/>
 
             <ir.minoo96.Utility.FontTextView
                 android:id="@+id/txtStatusMsg"

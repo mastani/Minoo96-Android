@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import ir.minoo96.Items.Candidate;
 import ir.minoo96.Items.Comment;
@@ -125,6 +126,31 @@ public class Parser {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public static ArrayList<Post> parseSearchPosts(JSONArray json) {
+        ArrayList<Post> posts = new ArrayList<>();
+
+        try {
+            for (int i = 0; i < json.length(); i++) {
+                JSONObject subObj = (JSONObject) json.get(i);
+
+                Post item = new Post();
+                item.setId(subObj.getInt("id"));
+                item.setCandidateId(subObj.getInt("candidate_id"));
+                item.setImage(subObj.getString("image"));
+                item.setContent(subObj.getString("content").trim());
+                item.setTime(subObj.getString("time"));
+                item.setLikes(subObj.getInt("likes"));
+                item.setComments(subObj.getInt("comments"));
+
+                posts.add(item);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return posts;
     }
 
 //    public static boolean parserLogin(Context context, JSONObject json) {

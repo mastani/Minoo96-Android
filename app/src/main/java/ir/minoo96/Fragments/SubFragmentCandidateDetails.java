@@ -4,28 +4,23 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mikhaellopez.circularimageview.CircularImageView;
-import com.squareup.picasso.Picasso;
+import com.facebook.drawee.view.SimpleDraweeView;
 
-import ir.minoo96.API.RequestCallback;
-import ir.minoo96.API.Requests;
 import ir.minoo96.Items.Candidate;
 import ir.minoo96.R;
 import ir.minoo96.Utility.FontTextView;
 import ir.minoo96.Utility.Utilities;
-import ir.minoo96.Utility.Variables;
 
 public class SubFragmentCandidateDetails extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = SubFragmentCandidateDetails.class.getSimpleName();
 
     //private SwipeRefreshLayout swipeRefreshLayout;
-    CircularImageView imgProfile;
+    SimpleDraweeView imgProfile;
     FontTextView txtName;
     FontTextView txtFather;
     FontTextView txtAge;
@@ -53,7 +48,7 @@ public class SubFragmentCandidateDetails extends Fragment implements SwipeRefres
         super.onViewCreated(view, savedInstanceState);
 
         //swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
-        imgProfile = (CircularImageView) view.findViewById(R.id.imgProfile);
+        imgProfile = (SimpleDraweeView) view.findViewById(R.id.imgProfile);
         txtName = (FontTextView) view.findViewById(R.id.txtName);
         txtFather = (FontTextView) view.findViewById(R.id.txtFather);
         txtAge = (FontTextView) view.findViewById(R.id.txtAge);
@@ -75,7 +70,7 @@ public class SubFragmentCandidateDetails extends Fragment implements SwipeRefres
         int i = getActivity().getIntent().getExtras().getInt("item");
         Candidate candidate = Utilities.findCandidateItem(i);
 
-        Picasso.with(getContext()).load(candidate.getImage()).into(imgProfile);
+        imgProfile.setImageURI(candidate.getImage());
         txtName.setText(candidate.getName());
         txtFather.setText(candidate.getFatherName());
         txtAge.setText("" + candidate.getAge());

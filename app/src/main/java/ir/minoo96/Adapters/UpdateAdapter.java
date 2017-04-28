@@ -1,13 +1,10 @@
 package ir.minoo96.Adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -17,22 +14,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.mikhaellopez.circularimageview.CircularImageView;
-import com.squareup.picasso.Picasso;
+import com.facebook.drawee.view.SimpleDraweeView;
 
-import org.joda.time.Period;
-import org.joda.time.format.PeriodFormatter;
-import org.joda.time.format.PeriodFormatterBuilder;
-
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-import ir.minoo96.API.RequestCallback;
+import ir.minoo96.API.Callbacks.RequestCallback;
 import ir.minoo96.API.Requests;
 import ir.minoo96.CandidateActivity;
 import ir.minoo96.CommentsActivity;
@@ -40,7 +27,6 @@ import ir.minoo96.Items.Candidate;
 import ir.minoo96.Items.Post;
 import ir.minoo96.R;
 import ir.minoo96.Utility.FontTextView;
-import ir.minoo96.Utility.SolarCalendar;
 import ir.minoo96.Utility.SwipeBack.SwipeBackActivityHelper;
 import ir.minoo96.Utility.Utilities;
 import ir.minoo96.Utility.Variables;
@@ -55,10 +41,10 @@ public class UpdateAdapter extends RecyclerView.Adapter<UpdateAdapter.MyViewHold
 
         RecyclerView candidatesRecyclerView;
         LinearLayout candidateHolder;
-        CircularImageView profile;
+        SimpleDraweeView profile;
         FontTextView name;
         FontTextView date;
-        ImageView postImage;
+        SimpleDraweeView postImage;
         FontTextView statusMsg;
         ImageView heartAnim;
         ImageView like;
@@ -70,10 +56,10 @@ public class UpdateAdapter extends RecyclerView.Adapter<UpdateAdapter.MyViewHold
 
             candidatesRecyclerView = (RecyclerView) itemView.findViewById(R.id.recyclerView);
             candidateHolder = (LinearLayout) itemView.findViewById(R.id.candidateHolder);
-            profile = (CircularImageView) itemView.findViewById(R.id.profile_image);
+            profile = (SimpleDraweeView) itemView.findViewById(R.id.profile_image);
             name = (FontTextView) itemView.findViewById(R.id.name);
             date = (FontTextView) itemView.findViewById(R.id.date);
-            postImage = (ImageView) itemView.findViewById(R.id.post_image);
+            postImage = (SimpleDraweeView) itemView.findViewById(R.id.post_image);
             statusMsg = (FontTextView) itemView.findViewById(R.id.txtStatusMsg);
             heartAnim = (ImageView) itemView.findViewById(R.id.heart_anim);
             like = (ImageView) itemView.findViewById(R.id.like);
@@ -122,9 +108,9 @@ public class UpdateAdapter extends RecyclerView.Adapter<UpdateAdapter.MyViewHold
         final Post post = posts.get(listPosition);
         Candidate candidate = Utilities.findCandidateItem(post.getCandidateId());
 
-        Picasso.with(activity).load(candidate.getImage()).into(holder.profile);
+        holder.profile.setImageURI(candidate.getImage());
         holder.name.setText(candidate.getName());
-        Picasso.with(activity).load(post.getImage()).into(holder.postImage);
+        holder.postImage.setImageURI(post.getImage());
         holder.statusMsg.setText(post.getContent());
         setLikeCommentTextView(holder.likesCommentCount, post.getLikes(), post.getComments());
 

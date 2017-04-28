@@ -5,7 +5,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -14,11 +13,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import ir.minoo96.API.CommentsCallback;
-import ir.minoo96.API.RequestCallback;
+import ir.minoo96.API.Callbacks.CommentsCallback;
+import ir.minoo96.API.Callbacks.RequestCallback;
 import ir.minoo96.API.Requests;
 import ir.minoo96.Adapters.CommentListAdapter;
-import ir.minoo96.Adapters.FeedListAdapter;
 import ir.minoo96.Items.Comment;
 import ir.minoo96.Utility.FontButton;
 import ir.minoo96.Utility.Variables;

@@ -14,7 +14,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import ir.minoo96.API.RequestCallback;
+import ir.minoo96.API.Callbacks.RequestCallback;
 import ir.minoo96.API.Requests;
 import ir.minoo96.Adapters.FeedListAdapter;
 import ir.minoo96.FeedActivity;

@@ -8,16 +8,6 @@
     android:layout_marginTop="10dp"
     android:gravity="top|end">
 
-    <!--<ir.minoo96.Utility.FontTextView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:gravity="right"-->
-    <!--android:paddingLeft="15dp"-->
-    <!--android:paddingRight="15dp"-->
-    <!--android:paddingTop="15dp"-->
-    <!--android:text="لیست نامزد های جدید"-->
-    <!--android:textSize="13sp"/>-->
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

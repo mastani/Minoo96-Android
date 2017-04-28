@@ -1,7 +1,6 @@
 package ir.minoo96.Adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -11,11 +10,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.mikhaellopez.circularimageview.CircularImageView;
-import com.squareup.picasso.Picasso;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 import ir.minoo96.CandidateActivity;
@@ -32,15 +29,13 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.MyVi
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        CircularImageView imgProfile;
+        SimpleDraweeView imgProfile;
         TextView txtName;
-        TextView txtStatus;
 
         public MyViewHolder(final View itemView) {
             super(itemView);
-            this.imgProfile = (CircularImageView) itemView.findViewById(R.id.image);
+            this.imgProfile = (SimpleDraweeView) itemView.findViewById(R.id.image);
             this.txtName = (TextView) itemView.findViewById(R.id.name);
-            this.txtStatus = (TextView) itemView.findViewById(R.id.txtStatusMsg);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -87,7 +82,10 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.MyVi
         Candidate candidate = candidates.get(listPosition);
 
         holder.txtName.setText(candidate.getName());
-        Picasso.with(this.activity).load(candidate.getImage()).into(holder.imgProfile);
+        holder.imgProfile.setImageURI(candidate.getImage());
+
+        if  (holder.txtName.getText().length() > 15)
+            holder.txtName.setTextSize(10f);
 
         if (bigSize) {
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(200, 200);

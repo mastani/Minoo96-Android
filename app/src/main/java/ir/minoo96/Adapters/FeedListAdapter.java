@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import java.util.List;
 
 import ir.minoo96.FeedActivity;
@@ -56,7 +58,7 @@ public class FeedListAdapter extends BaseAdapter {
 
         FontTextView name = (FontTextView) convertView.findViewById(R.id.name);
         FontTextView statusMsg = (FontTextView) convertView.findViewById(R.id.txtStatusMsg);
-        ImageView netImageView = (ImageView) convertView.findViewById(R.id.feedImage1);
+        SimpleDraweeView netImageView = (SimpleDraweeView) convertView.findViewById(R.id.feedImage1);
         Button continueReading = (Button) convertView.findViewById(R.id.continueReading);
 
         FeedUtils.setData(convertView.getContext(), position, name, statusMsg, netImageView, false);

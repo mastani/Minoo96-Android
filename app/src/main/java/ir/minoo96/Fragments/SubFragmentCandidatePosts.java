@@ -4,28 +4,19 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
-import ir.minoo96.API.RequestCallback;
-import ir.minoo96.API.Requests;
-import ir.minoo96.Adapters.CandidateAdapter;
 import ir.minoo96.Adapters.UpdateAdapter;
-import ir.minoo96.Items.Candidate;
 import ir.minoo96.Items.Post;
 import ir.minoo96.R;
-import ir.minoo96.Utility.FontButton;
 import ir.minoo96.Utility.FontTextView;
-import ir.minoo96.Utility.RtlGridLayoutManager;
 import ir.minoo96.Utility.Variables;
 
 public class SubFragmentCandidatePosts extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
@@ -88,15 +79,15 @@ public class SubFragmentCandidatePosts extends Fragment implements SwipeRefreshL
     public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        swipeRefreshLayout.setOnRefreshListener(this);
-//        swipeRefreshLayout.post(
-//                new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        fetchCandidates();
-//                    }
-//                }
-//        );
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.post(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        fetchCandidates();
+                    }
+                }
+        );
 
     }
 
