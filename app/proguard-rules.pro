@@ -26,11 +26,12 @@
 -dontwarn com.squareup.okhttp.**
 -dontwarn com.roughike.**
 -dontwarn okio.**
--dontnote retrofit2.Platform
--dontwarn retrofit2.Platform$Java8
 -keepattributes Signature
 -keepattributes Exceptions
--dontwarn javax.annotation.**
--dontwarn com.facebook.infer.annotation.ReturnsOwnership
--dontwarn com.facebook.infer.annotation.Functional
+-keep class org.joda.convert.** { *; }
+-keep interface org.joda.convert.** { *; }
+-keep class org.joda.time.** { *; }
+-keep interface org.joda.time.** { *; }
 -dontwarn org.joda.convert.**
+-dontwarn org.joda.time.**
+-keep class android.support.v7.widget.SearchView { *; }

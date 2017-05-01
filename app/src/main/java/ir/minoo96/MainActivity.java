@@ -14,10 +14,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 
@@ -28,9 +26,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import co.ronash.pushe.Pushe;
+import ir.minoo96.API.Callbacks.RequestCallback;
 import ir.minoo96.API.Callbacks.SearchCallback;
 import ir.minoo96.API.Parser;
-import ir.minoo96.API.Callbacks.RequestCallback;
 import ir.minoo96.API.Requests;
 import ir.minoo96.Fragments.FragmentCandidates;
 import ir.minoo96.Fragments.FragmentNews;
