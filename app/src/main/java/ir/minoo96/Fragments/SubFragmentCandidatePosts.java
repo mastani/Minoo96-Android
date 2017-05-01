@@ -13,6 +13,9 @@ import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
+import ir.minoo96.API.Callbacks.CandidatePostCallback;
+import ir.minoo96.API.Callbacks.PostsCallback;
+import ir.minoo96.API.Requests;
 import ir.minoo96.Adapters.UpdateAdapter;
 import ir.minoo96.Items.Post;
 import ir.minoo96.R;
@@ -28,6 +31,8 @@ public class SubFragmentCandidatePosts extends Fragment implements SwipeRefreshL
     LinearLayoutManager linearLayoutManager;
     RecyclerView recyclerView;
     UpdateAdapter updateAdapter;
+    FontTextView txtNoPosts;
+    int candidateId = 0;
 
     public SubFragmentCandidatePosts() {
 
@@ -49,30 +54,9 @@ public class SubFragmentCandidatePosts extends Fragment implements SwipeRefreshL
         linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
+        txtNoPosts = (FontTextView) view.findViewById(R.id.txtNoPost);
 
-        int i = getActivity().getIntent().getExtras().getInt("item");
-        ArrayList<Post> posts = findCandidatePosts(i);
-
-        if (posts.size() > 0) {
-            updateAdapter = new UpdateAdapter(getActivity(), posts);
-            recyclerView.setAdapter(updateAdapter);
-
-            FontTextView txtNoPosts = (FontTextView) view.findViewById(R.id.txtNoPost);
-            txtNoPosts.setVisibility(View.GONE);
-            subLayout.setBackgroundColor(getResources().getColor(R.color.feed_bg));
-        } else {
-            recyclerView.setVisibility(View.GONE);
-        }
-    }
-
-    private ArrayList<Post> findCandidatePosts(int candidateId) {
-        ArrayList<Post> posts = new ArrayList<>();
-        for (Post item : Variables.posts) {
-            if (item.getCandidateId() == candidateId) {
-                posts.add(item);
-            }
-        }
-        return posts;
+        candidateId = getActivity().getIntent().getExtras().getInt("item");
     }
 
     @Override
@@ -97,18 +81,31 @@ public class SubFragmentCandidatePosts extends Fragment implements SwipeRefreshL
     }
 
     protected void fetchCandidates() {
-//        swipeRefreshLayout.setRefreshing(true);
-//        Requests.fetchCandidates(getContext(), new RequestCallback() {
-//            @Override
-//            public void onSuccess() {
-//                swipeRefreshLayout.setRefreshing(false);
-//                //candidateAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onFailed() {
-//                swipeRefreshLayout.setRefreshing(false);
-//            }
-//        });
+        swipeRefreshLayout.setRefreshing(true);
+
+        Requests.fetchPosts(getActivity(), candidateId, new CandidatePostCallback() {
+            @Override
+            public void onResult(ArrayList<Post> posts) {
+                swipeRefreshLayout.setRefreshing(false);
+                updateAdapter = new UpdateAdapter(getActivity(), posts);
+                recyclerView.setAdapter(updateAdapter);
+
+                try {
+                    if (posts.size() > 0) {
+                        subLayout.setBackgroundColor(getResources().getColor(R.color.feed_bg));
+                        recyclerView.setVisibility(View.VISIBLE);
+                    } else {
+                        txtNoPosts.setVisibility(View.VISIBLE);
+                    }
+                } catch (Exception ex) {
+
+                }
+            }
+
+            @Override
+            public void onFailed() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 }

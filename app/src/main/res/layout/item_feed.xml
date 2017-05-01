@@ -22,13 +22,13 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:gravity="right"
             android:textAlignment="gravity"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:textStyle="bold"/>
 
         <com.facebook.drawee.view.SimpleDraweeView
@@ -47,6 +47,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
+            android:textSize="14sp"
             android:paddingLeft="@dimen/feed_item_status_pad_left_right"
             android:paddingRight="@dimen/feed_item_status_pad_left_right"
             android:paddingTop="@dimen/feed_item_status_pad_top"/>
@@ -59,7 +60,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:text="@string/continue_reading"
-            android:textSize="18sp"/>
+            android:textSize="14sp"/>
 
     </LinearLayout>
 

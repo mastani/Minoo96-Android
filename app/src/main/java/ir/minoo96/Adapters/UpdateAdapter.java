@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,11 +15,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 
+import ir.minoo96.API.Callbacks.PostsCallback;
 import ir.minoo96.API.Callbacks.RequestCallback;
 import ir.minoo96.API.Requests;
 import ir.minoo96.CandidateActivity;
@@ -50,6 +53,7 @@ public class UpdateAdapter extends RecyclerView.Adapter<UpdateAdapter.MyViewHold
         ImageView like;
         ImageView comment;
         FontTextView likesCommentCount;
+        ProgressBar progressBar;
 
         MyViewHolder(View itemView) {
             super(itemView);
@@ -65,6 +69,7 @@ public class UpdateAdapter extends RecyclerView.Adapter<UpdateAdapter.MyViewHold
             like = (ImageView) itemView.findViewById(R.id.like);
             comment = (ImageView) itemView.findViewById(R.id.comment);
             likesCommentCount = (FontTextView) itemView.findViewById(R.id.likes_comment_count);
+            progressBar = (ProgressBar) itemView.findViewById(R.id.progressbar);
 
             candidateHolder.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -124,6 +129,8 @@ public class UpdateAdapter extends RecyclerView.Adapter<UpdateAdapter.MyViewHold
 
             CandidateAdapter candidateAdapter = new CandidateAdapter(activity);
             recyclerView.setAdapter(candidateAdapter);
+
+            holder.candidatesRecyclerView.setVisibility(View.VISIBLE);
         } else {
             holder.candidatesRecyclerView.setVisibility(View.GONE);
         }
@@ -187,6 +194,12 @@ public class UpdateAdapter extends RecyclerView.Adapter<UpdateAdapter.MyViewHold
             }
         });
 
+        if (post.isUserLiked()) {
+            Log.d("tttttttttttt liked", post.getId() + "");
+            holder.like.setImageResource(R.mipmap.ic_fill_heart);
+        } else {
+            holder.like.setImageResource(R.mipmap.ic_empty_heart);
+        }
 
         holder.date.setText(Utilities.toPersianDate(post.getTime()));
 
@@ -200,6 +213,28 @@ public class UpdateAdapter extends RecyclerView.Adapter<UpdateAdapter.MyViewHold
                 activity.startActivity(i);
             }
         });
+
+        if (!oneCandidate && listPosition == getItemCount() - 1) {
+            holder.progressBar.setVisibility(View.VISIBLE);
+
+            Requests.fetchPosts(activity, Variables.postsOffset, new PostsCallback() {
+                @Override
+                public void onSuccess() {
+                    holder.progressBar.setVisibility(View.GONE);
+                    notifyDataSetChanged();
+                }
+
+                @Override
+                public void onLastSuccess() {
+                    holder.progressBar.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onFailed() {
+
+                }
+            });
+        }
     }
 
     void like(FontTextView textView, Post post, int user) {

@@ -36,7 +36,7 @@
                 android:gravity="top|right"
                 android:text="تست تیتر خبر"
                 android:textAlignment="gravity"
-                android:textSize="21sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 tools:ignore="MissingPrefix"/>
 
@@ -49,7 +49,7 @@
                 android:layout_marginTop="@dimen/feed_item_padding_top_bottom"
                 android:background="@color/white"
                 android:visibility="visible"
-                fresco:viewAspectRatio="1.33"/>
+                fresco:viewAspectRatio="1"/>
 
             <ir.minoo96.Utility.FontTextView
                 android:id="@+id/txtStatusMsg"

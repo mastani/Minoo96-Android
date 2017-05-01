@@ -36,22 +36,6 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.MyVi
             super(itemView);
             this.imgProfile = (SimpleDraweeView) itemView.findViewById(R.id.image);
             this.txtName = (TextView) itemView.findViewById(R.id.name);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(v.getContext(), CandidateActivity.class);
-                    Bundle mBundle = new Bundle();
-                    mBundle.putInt("item", Variables.candidates.get(getAdapterPosition()).getId());
-                    i.putExtras(mBundle);
-
-                    SwipeBackActivityHelper.activityBuilder(activity)
-                            .intent(i)
-                            .needParallax(true)
-                            .needBackgroundShadow(true)
-                            .startActivity();
-                }
-            });
         }
     }
 
@@ -79,18 +63,34 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.MyVi
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int listPosition) {
-        Candidate candidate = candidates.get(listPosition);
+        final Candidate candidate = candidates.get(listPosition);
 
         holder.txtName.setText(candidate.getName());
         holder.imgProfile.setImageURI(candidate.getImage());
 
-        if  (holder.txtName.getText().length() > 15)
+        if (holder.txtName.getText().length() > 15)
             holder.txtName.setTextSize(10f);
 
         if (bigSize) {
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(200, 200);
             holder.imgProfile.setLayoutParams(layoutParams);
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), CandidateActivity.class);
+                Bundle mBundle = new Bundle();
+                mBundle.putInt("item", candidate.getId());
+                i.putExtras(mBundle);
+
+                SwipeBackActivityHelper.activityBuilder(activity)
+                        .intent(i)
+                        .needParallax(true)
+                        .needBackgroundShadow(true)
+                        .startActivity();
+            }
+        });
     }
 
     @Override

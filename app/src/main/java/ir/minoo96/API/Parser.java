@@ -10,11 +10,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import ir.minoo96.API.Callbacks.CandidatePostCallback;
 import ir.minoo96.Items.Candidate;
 import ir.minoo96.Items.Comment;
 import ir.minoo96.Items.Feed;
 import ir.minoo96.Items.Post;
 import ir.minoo96.Utility.SharedPreferenceHelper;
+import ir.minoo96.Utility.Utilities;
 import ir.minoo96.Utility.Variables;
 
 public class Parser {
@@ -52,7 +54,9 @@ public class Parser {
     }
 
     public static void parseFeeds(JSONArray json) {
-        Variables.feeds.clear();
+        if (Variables.feedsOffset == 0)
+            Variables.feeds.clear();
+
         try {
             for (int i = 0; i < json.length(); i++) {
                 JSONObject subObj = (JSONObject) json.get(i);
@@ -65,6 +69,7 @@ public class Parser {
                 item.setTimeStamp(subObj.getString("time"));
 
                 Variables.feeds.add(item);
+                Variables.feedsOffset++;
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -72,25 +77,44 @@ public class Parser {
     }
 
     public static void parsePosts(JSONArray json) {
-        Variables.posts.clear();
+        if (Variables.postsOffset == 0)
+            Variables.posts.clear();
+
+        ArrayList<Post> posts = parseJSONPosts(json);
+
+        for (Post post : posts) {
+            if (!Utilities.checkPostExist(post.getId())) {
+                Variables.posts.add(post);
+                Variables.postsOffset++;
+            }
+        }
+    }
+
+    public static ArrayList<Post> parseJSONPosts(JSONArray json) {
+        ArrayList<Post> posts = new ArrayList<>();
+
         try {
             for (int i = 0; i < json.length(); i++) {
                 JSONObject subObj = (JSONObject) json.get(i);
 
                 Post item = new Post();
                 item.setId(subObj.getInt("id"));
+
                 item.setCandidateId(subObj.getInt("candidate_id"));
                 item.setImage(subObj.getString("image"));
                 item.setContent(subObj.getString("content").trim());
                 item.setTime(subObj.getString("time"));
                 item.setLikes(subObj.getInt("likes"));
                 item.setComments(subObj.getInt("comments"));
+                item.setUserLiked(subObj.getInt("liked") == 1);
 
-                Variables.posts.add(item);
+                posts.add(item);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        return posts;
     }
 
     public static ArrayList<Comment> parseComments(JSONArray json) {
@@ -126,31 +150,6 @@ public class Parser {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    public static ArrayList<Post> parseSearchPosts(JSONArray json) {
-        ArrayList<Post> posts = new ArrayList<>();
-
-        try {
-            for (int i = 0; i < json.length(); i++) {
-                JSONObject subObj = (JSONObject) json.get(i);
-
-                Post item = new Post();
-                item.setId(subObj.getInt("id"));
-                item.setCandidateId(subObj.getInt("candidate_id"));
-                item.setImage(subObj.getString("image"));
-                item.setContent(subObj.getString("content").trim());
-                item.setTime(subObj.getString("time"));
-                item.setLikes(subObj.getInt("likes"));
-                item.setComments(subObj.getInt("comments"));
-
-                posts.add(item);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return posts;
     }
 
 //    public static boolean parserLogin(Context context, JSONObject json) {

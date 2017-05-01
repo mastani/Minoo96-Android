@@ -23,7 +23,8 @@
             android:paddingTop="15dp"
             android:text="این کاندید هنوز مطلبی ارسال نکرده است."
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:visibility="gone"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -33,6 +34,7 @@
             android:background="@color/feed_bg"
             android:clipToPadding="false"
             android:paddingBottom="20dp"
+            android:visibility="gone"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
     </RelativeLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

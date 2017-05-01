@@ -1,5 +1,6 @@
 package ir.minoo96.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,11 +10,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import ir.minoo96.API.Callbacks.FeedsCallback;
 import ir.minoo96.API.Callbacks.RequestCallback;
 import ir.minoo96.API.Requests;
 import ir.minoo96.Adapters.FeedListAdapter;
@@ -21,13 +24,15 @@ import ir.minoo96.FeedActivity;
 import ir.minoo96.R;
 import ir.minoo96.Utility.Variables;
 
-public class FragmentNews extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class FragmentNews extends Fragment implements SwipeRefreshLayout.OnRefreshListener, ListView.OnScrollListener {
 
     private static final String TAG = FragmentNews.class.getSimpleName();
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private ListView listView;
     private FeedListAdapter listAdapter;
+    private int preLast;
+    View footerView;
 
     public FragmentNews() {
 
@@ -61,7 +66,7 @@ public class FragmentNews extends Fragment implements SwipeRefreshLayout.OnRefre
                 new Runnable() {
                     @Override
                     public void run() {
-                        fetchFeeds();
+                        fetchFeeds(true);
                     }
                 }
         );
@@ -74,20 +79,35 @@ public class FragmentNews extends Fragment implements SwipeRefreshLayout.OnRefre
                 startActivity(feed);
             }
         });
+
+        listView.setOnScrollListener(this);
+
+        footerView = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.loading, null, false);
     }
 
     @Override
     public void onRefresh() {
-        fetchFeeds();
+        fetchFeeds(true);
     }
 
-    private void fetchFeeds() {
-        swipeRefreshLayout.setRefreshing(true);
-        Requests.fetchNews(getContext(), new RequestCallback() {
+    private void fetchFeeds(final boolean refresh) {
+        if (refresh) {
+            swipeRefreshLayout.setRefreshing(true);
+            Variables.feedsOffset = 0;
+        }
+
+        Requests.fetchNews(getContext(), Variables.feedsOffset, new FeedsCallback() {
             @Override
             public void onSuccess() {
-                swipeRefreshLayout.setRefreshing(false);
+                if (refresh)
+                    swipeRefreshLayout.setRefreshing(false);
                 listAdapter.notifyDataSetChanged();
+                listView.addFooterView(footerView);
+            }
+
+            @Override
+            public void onLastSuccess() {
+                listView.removeFooterView(footerView);
             }
 
             @Override
@@ -95,5 +115,25 @@ public class FragmentNews extends Fragment implements SwipeRefreshLayout.OnRefre
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+    }
+
+    @Override
+    public void onScroll(AbsListView lw, final int firstVisibleItem, final int visibleItemCount, final int totalItemCount) {
+
+        switch (lw.getId()) {
+            case R.id.listView:
+                final int lastItem = firstVisibleItem + visibleItemCount;
+                if (lastItem == totalItemCount) {
+                    if (preLast != lastItem) {
+                        fetchFeeds(false);
+                        preLast = lastItem;
+                    }
+                }
+        }
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+
     }
 }

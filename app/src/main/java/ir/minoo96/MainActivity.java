@@ -108,11 +108,12 @@ public class MainActivity extends BaseActivity {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    SharedPreferenceHelper cahce = new SharedPreferenceHelper(getBaseContext(), "cache");
-
-                    String news = cahce.getString("news", "");
+                    SharedPreferenceHelper newsCahce = new SharedPreferenceHelper(getBaseContext(), "news");
+                    String news = newsCahce.getString("news", "");
                     if (news.length() > 1)
                         Parser.parseFeeds(new JSONArray(news));
+
+                    SharedPreferenceHelper cahce = new SharedPreferenceHelper(getBaseContext(), "cache");
 
                     String candidates = cahce.getString("candidates", "");
                     if (candidates.length() > 1)
@@ -341,5 +342,13 @@ public class MainActivity extends BaseActivity {
         public int getCount() {
             return mCount;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getBottomNavigation().getSelectedIndex() != 0)
+            getViewPager().setCurrentItem(0);
+        else
+            super.onBackPressed();
     }
 }

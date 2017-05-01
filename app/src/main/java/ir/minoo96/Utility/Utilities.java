@@ -5,6 +5,7 @@ import android.os.Build;
 import android.provider.Settings;
 import android.text.Html;
 import android.text.format.DateUtils;
+import android.util.DisplayMetrics;
 
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
@@ -16,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import ir.minoo96.Items.Candidate;
+import ir.minoo96.Items.Post;
 
 public class Utilities {
 
@@ -28,6 +30,16 @@ public class Utilities {
         Candidate nullCandidate = new Candidate();
         nullCandidate.setImage("http://minoo96.ir/Theme/Images/Profiles/person.jpg");
         return nullCandidate;
+    }
+
+    public static boolean checkPostExist(int id) {
+        for (Post item : Variables.posts) {
+            if (item.getId() == id) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static String getSerial(Context context) {
@@ -126,6 +138,21 @@ public class Utilities {
                 return "اسفند";
             default:
                 return "فروردین";
+        }
+    }
+
+    public static double getDeviceSizeByInch(Context context) {
+        try {
+            DisplayMetrics dm = context.getResources().getDisplayMetrics();
+
+            double density = dm.density * 160;
+            double x = Math.pow(dm.widthPixels / density, 2);
+            double y = Math.pow(dm.heightPixels / density, 2);
+            double screenInches = Math.sqrt(x + y);
+
+            return screenInches;
+        } catch (Exception ex) {
+            return 0;
         }
     }
 }

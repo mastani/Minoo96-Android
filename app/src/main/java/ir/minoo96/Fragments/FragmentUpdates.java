@@ -9,11 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
-import ir.minoo96.Adapters.UpdateAdapter;
 import ir.minoo96.API.Callbacks.RequestCallback;
-import ir.minoo96.R;
 import ir.minoo96.API.Requests;
+import ir.minoo96.Adapters.UpdateAdapter;
+import ir.minoo96.R;
+import ir.minoo96.Utility.Variables;
 
 public class FragmentUpdates extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -71,6 +73,8 @@ public class FragmentUpdates extends Fragment implements SwipeRefreshLayout.OnRe
 
     void fetchUpdates() {
         swipeRefreshLayout.setRefreshing(true);
+        Variables.postsOffset = 0;
+
         Requests.fetchInit(getContext(), new RequestCallback() {
             @Override
             public void onSuccess() {

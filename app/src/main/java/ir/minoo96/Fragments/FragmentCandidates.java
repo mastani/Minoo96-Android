@@ -20,6 +20,7 @@ import ir.minoo96.Items.Candidate;
 import ir.minoo96.R;
 import ir.minoo96.Utility.FontButton;
 import ir.minoo96.Utility.RtlGridLayoutManager;
+import ir.minoo96.Utility.Utilities;
 import ir.minoo96.Utility.Variables;
 
 public class FragmentCandidates extends Fragment implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
@@ -45,16 +46,18 @@ public class FragmentCandidates extends Fragment implements SwipeRefreshLayout.O
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        int screenSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(false);
-        if (screenSize == Configuration.SCREENLAYOUT_SIZE_NORMAL)
+
+        double screenSize = Utilities.getDeviceSizeByInch(getContext());
+
+        if (screenSize != 0 && screenSize > 4.5)
             gridLayoutManager = new RtlGridLayoutManager(getContext(), 3);
-         else if (screenSize == Configuration.SCREENLAYOUT_SIZE_SMALL)
+        else
             gridLayoutManager = new RtlGridLayoutManager(getContext(), 2);
+
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
 

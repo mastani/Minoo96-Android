@@ -30,3 +30,7 @@
 -dontwarn retrofit2.Platform$Java8
 -keepattributes Signature
 -keepattributes Exceptions
+-dontwarn javax.annotation.**
+-dontwarn com.facebook.infer.annotation.ReturnsOwnership
+-dontwarn com.facebook.infer.annotation.Functional
+-dontwarn org.joda.convert.**

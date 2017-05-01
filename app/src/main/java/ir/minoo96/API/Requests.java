@@ -20,7 +20,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import ir.minoo96.API.Callbacks.CandidatePostCallback;
 import ir.minoo96.API.Callbacks.CommentsCallback;
+import ir.minoo96.API.Callbacks.FeedsCallback;
+import ir.minoo96.API.Callbacks.PostsCallback;
 import ir.minoo96.API.Callbacks.RequestCallback;
 import ir.minoo96.API.Callbacks.SearchCallback;
 import ir.minoo96.Items.Candidate;
@@ -28,6 +31,7 @@ import ir.minoo96.Items.Comment;
 import ir.minoo96.Items.Post;
 import ir.minoo96.Utility.SharedPreferenceHelper;
 import ir.minoo96.Utility.Utilities;
+import ir.minoo96.Utility.Variables;
 import ir.minoo96.Utility.Volley.AppController;
 
 public class Requests {
@@ -46,43 +50,48 @@ public class Requests {
     private final static String URL_SEARCH = URL_BASE + "search.php";
 
     public static void fetchInit(final Context context, final RequestCallback callback) {
-        JsonObjectRequest jsonReq = new JsonObjectRequest(Request.Method.GET, URL_INIT, null, new Response.Listener<JSONObject>() {
-
+        StringRequest req = new StringRequest(Request.Method.POST, URL_INIT, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONObject response) {
-                if (response != null) {
-                    try {
-                        SharedPreferenceHelper cahce = new SharedPreferenceHelper(context, "cache");
+            public void onResponse(String response) {
+                try {
+                    JSONObject json = new JSONObject(response);
+                    SharedPreferenceHelper cahce = new SharedPreferenceHelper(context, "cache");
 
-                        JSONArray candidates = response.getJSONArray("candidates");
-                        Parser.parseCandidates(candidates);
-                        cahce.setString("candidates", candidates.toString());
+                    JSONArray candidates = json.getJSONArray("candidates");
+                    Parser.parseCandidates(candidates);
+                    cahce.setString("candidates", candidates.toString());
 
-                        JSONArray news = response.getJSONArray("news");
-                        Parser.parseFeeds(news);
-                        cahce.setString("news", news.toString());
+                    SharedPreferenceHelper newsCahce = new SharedPreferenceHelper(context, "news");
+                    JSONArray news = json.getJSONArray("news");
+                    Parser.parseFeeds(news);
+                    newsCahce.setString("news", news.toString());
 
-                        JSONArray posts = response.getJSONArray("posts");
-                        Parser.parsePosts(posts);
-                        cahce.setString("posts", posts.toString());
-                    } catch (Exception ex) {
+                    JSONArray posts = json.getJSONArray("posts");
+                    Parser.parsePosts(posts);
+                    cahce.setString("posts", posts.toString());
+                } catch (Exception ex) {
 
-                    }
                 }
 
                 callback.onSuccess();
             }
         }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
                 callback.onFailed();
                 Toast.makeText(context, "خطا در اتصال به اینترنت", Toast.LENGTH_LONG).show();
             }
-        });
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("user_id", "" + Variables.userId);
+                return params;
+            }
+        };
 
-        jsonReq.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        AppController.getInstance().addToRequestQueue(jsonReq);
+        req.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        AppController.getInstance().addToRequestQueue(req);
     }
 
     public static void fetchCandidates(final Context context, final RequestCallback callback) {
@@ -116,62 +125,115 @@ public class Requests {
         AppController.getInstance().addToRequestQueue(jsonReq);
     }
 
-    public static void fetchNews(final Context context, final RequestCallback callback) {
-        JsonObjectRequest jsonReq = new JsonObjectRequest(Request.Method.GET, URL_FEED, null, new Response.Listener<JSONObject>() {
-
+    public static void fetchNews(final Context context, final int offset, final FeedsCallback callback) {
+        StringRequest req = new StringRequest(Request.Method.POST, URL_FEED, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(String response) {
                 try {
-                    SharedPreferenceHelper cahce = new SharedPreferenceHelper(context, "cache");
-                    JSONArray news = response.getJSONArray("news");
-                    Parser.parseFeeds(news);
-                    cahce.setString("news", news.toString());
-                } catch (Exception ex) {
+                    JSONObject json = new JSONObject(response);
+                    JSONArray news = json.getJSONArray("news");
 
+                    if (json.has("news") && json.getJSONArray("news").length() == 0) {
+                        callback.onLastSuccess();
+                        return;
+                    }
+
+                    Parser.parseFeeds(news);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
 
                 callback.onSuccess();
             }
         }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
                 callback.onFailed();
                 Toast.makeText(context, "خطا در اتصال به اینترنت", Toast.LENGTH_LONG).show();
             }
-        });
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("offset", "" + offset);
+                return params;
+            }
+        };
 
-        jsonReq.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        AppController.getInstance().addToRequestQueue(jsonReq);
+        req.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        AppController.getInstance().addToRequestQueue(req);
     }
 
-    public static void fetchPosts(final Context context, final RequestCallback callback) {
-        JsonObjectRequest jsonReq = new JsonObjectRequest(Request.Method.GET, URL_POSTS, null, new Response.Listener<JSONObject>() {
-
+    public static void fetchPosts(final Context context, final int offset, final PostsCallback callback) {
+        StringRequest req = new StringRequest(Request.Method.POST, URL_POSTS, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(String response) {
                 try {
-                    SharedPreferenceHelper cahce = new SharedPreferenceHelper(context, "cache");
-                    JSONArray posts = response.getJSONArray("posts");
-                    Parser.parsePosts(posts);
-                    cahce.setString("posts", posts.toString());
-                } catch (Exception ex) {
+                    JSONObject json = new JSONObject(response);
+                    JSONArray posts = json.getJSONArray("posts");
 
+                    if (json.has("posts") && json.getJSONArray("posts").length() == 0) {
+                        callback.onLastSuccess();
+                        return;
+                    }
+
+                    Parser.parsePosts(posts);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
 
                 callback.onSuccess();
             }
         }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
                 callback.onFailed();
                 Toast.makeText(context, "خطا در اتصال به اینترنت", Toast.LENGTH_LONG).show();
             }
-        });
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("offset", "" + offset);
+                params.put("user_id", "" + Variables.userId);
+                return params;
+            }
+        };
 
-        jsonReq.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        AppController.getInstance().addToRequestQueue(jsonReq);
+        req.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        AppController.getInstance().addToRequestQueue(req);
+    }
+
+    public static void fetchPosts(final Context context, final int candidateId, final CandidatePostCallback callback) {
+        StringRequest req = new StringRequest(Request.Method.POST, URL_POSTS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject json = new JSONObject(response);
+                    ArrayList<Post> posts = Parser.parseJSONPosts(json.getJSONArray("posts"));
+                    callback.onResult(posts);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                callback.onFailed();
+                Toast.makeText(context, "خطا در اتصال به اینترنت", Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("user_id", "" + Variables.userId);
+                params.put("candidate_id", "" + candidateId);
+                return params;
+            }
+        };
+
+        req.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        AppController.getInstance().addToRequestQueue(req);
     }
 
     public static void fetchUser(final Context context, final String serial, final String model, final RequestCallback callback) {
@@ -342,7 +404,7 @@ public class Requests {
                         }
 
                         if (json.has("posts")) {
-                            posts = Parser.parseSearchPosts(json.getJSONArray("posts"));
+                            posts = Parser.parseJSONPosts(json.getJSONArray("posts"));
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -366,6 +428,7 @@ public class Requests {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("q", query);
+                params.put("user_id", "" + Variables.userId);
                 return params;
             }
         };

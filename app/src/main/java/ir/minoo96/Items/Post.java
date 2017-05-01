@@ -5,11 +5,12 @@ public class Post {
     int id, candidateId;
     String content, image, time;
     int likes, comments;
+    boolean userLiked = false;
 
     public Post() {
     }
 
-    public Post(int id, int candidateId, String content, String image, String time, int likes, int comments) {
+    public Post(int id, int candidateId, String content, String image, String time, int likes, int comments, boolean userLiked) {
         this.id = id;
         this.candidateId = candidateId;
         this.content = content;
@@ -17,6 +18,7 @@ public class Post {
         this.time = time;
         this.likes = likes;
         this.comments = comments;
+        this.userLiked = userLiked;
     }
 
     public int getId() {
@@ -73,5 +75,13 @@ public class Post {
 
     public void setComments(int comments) {
         this.comments = comments;
+    }
+
+    public boolean isUserLiked() {
+        return userLiked;
+    }
+
+    public void setUserLiked(boolean userLiked) {
+        this.userLiked = userLiked;
     }
 }
